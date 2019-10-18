@@ -1,8 +1,11 @@
 import os
+import urllib3
+from tqdm import tqdm
 from Module.ImgCrawler import *
 
 URL = "https://www.dcard.tw/f/sex"
 header = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'}
+urllib3.disable_warnings()
 exclude = ['https://imgur.dcard.tw/JVwAaY4.jpg',
            'https://imgur.dcard.tw/kHP8nkk.jpg',
            'https://imgur.dcard.tw/z0drHeZ.jpg',
@@ -31,8 +34,7 @@ if __name__ == '__main__':
     # Create Folder
     if os.path.exists(r'.\img') == False:
         os.makedirs(r'.\img')
-    for i in range(20):
-        print("第 {} 次迴圈".format(i))
+    for i in tqdm(range(20)):
         main()
         id = get_key(id_file)
         URL = "https://www.dcard.tw/_api/forums/sex/posts?popular=true&limit=100&before={}".format(id)
